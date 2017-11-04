@@ -17,3 +17,12 @@ CREATE TABLE products (
 	PRIMARY KEY(id)
 );
 
+-- 1. insert mock data 
+-- 2. bamazonCustomer.js - first display all the items available (id, names, price)
+-- 3. prompt: FIRST = ask user for ID of product like to purchase SECOND = quantity
+-- 4. after placed order, we check if we have enough 
+-- 		if not --> "Insufficient Quantity!" & prevent order
+--		if yes --> SQL database reflect remain 
+--					show total cost of purchase
+
+
