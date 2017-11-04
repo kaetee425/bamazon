@@ -4,7 +4,7 @@ USE bamazonDB;
 
 CREATE TABLE products (
 	-- item_id (unique id)
-	id INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
 	-- product_name
 	product_name VARCHAR (100) NOT NULL,
 	-- department_name 
@@ -17,6 +17,8 @@ CREATE TABLE products (
 	PRIMARY KEY(id)
 );
 
+select * from products
+
 -- 1. insert mock data 
 -- 2. bamazonCustomer.js - first display all the items available (id, names, price)
 -- 3. prompt: FIRST = ask user for ID of product like to purchase SECOND = quantity
@@ -26,3 +28,4 @@ CREATE TABLE products (
 --					show total cost of purchase
 
 
+-- how to show top row??
