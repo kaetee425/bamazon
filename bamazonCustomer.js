@@ -23,12 +23,12 @@ connection.connect(function(err) {
 	    	for (var i = 0; i < res.length; i++){
 	    		console.log(res[i].id + " || " + res[i].product_name + " || " + res[i].department_name + " || " + res[i].price + " || " + res[i].stock_quantity)
 	    	}
-	    	runSearch();
+	    runSearch(res);
 	  });
 });
 
 
-function runSearch(){
+function runSearch(res){
 	inquirer
 	.prompt([
 		//  3. prompt: FIRST = ask user for ID of product like to purchase SECOND = quantity
@@ -38,14 +38,15 @@ function runSearch(){
 			message: "Which product would you like?"
 		}
 	]).then(function(answer){
+
 		var correct = false;
 		for (var i = 0; i < res.length; i++) {
-			if (res[i].product_name === answer.choices){
+			if (res[i].product_name == answer.choices){
 				correct = true;
 				var product = answer.choices;
 				var id = i;
 
-				inqurier.prompt([{
+				inquirer.prompt([{
 					type: "input",
 					name: "quantity",
 					message: "How many of this are you going to buy?",
@@ -57,13 +58,18 @@ function runSearch(){
 						}
 					}
 				}]).then(function(answer2){
-					if ((res[id].stock_quantity - answer2.quantity) > 0){
-						connection.query("UPDATE products SET stock_quantity = " + (res[id].stock_quantity - answer2.quantity) + " WHERE product_name= " + product + " ", function(err, res2){
+					var newQty = res[id].stock_quantity - answer2.quantity
+					if (newQty > 0){
+						connection.query("UPDATE products SET stock_quantity = 'newQty' WHERE product_name= 'product' ", function(err, res2){
 							console.log("Product Bought!");
 							for (var i = 0; i < res.length; i++){
 					    		console.log(res[i].id + " || " + res[i].product_name + " || " + res[i].department_name + " || " + res[i].price + " || " + res[i].stock_quantity)
 					    	}
 						})
+
+					var cost = (newQty * answer.choices.price)
+					console.log("This is the cost you owe " + cost)
+
 					} else {
 						console.log("Not a valid selection!")
 						runSearch();
